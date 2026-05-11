@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRENDY BAGSTORE — Topcity Plaza, Kisenyi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg0:#070A13;
+      --bg1:#0B1022;
+      --text:#EAF0FF;
+      --muted:rgba(234,240,255,.72);
+      --brand1:#8B5CF6;
+      --brand2:#22D3EE;
+      --brand3:#34D399;
+      --warn:#F59E0B;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 20px 80px rgba(0,0,0,.55);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(139,92,246,.35), transparent 55%),
+        radial-gradient(900px 520px at 90% 0%, rgba(34,211,238,.30), transparent 48%),
+        radial-gradient(900px 520px at 10% 80%, rgba(52,211,153,.18), transparent 50%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    .grid-bg{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(600px 380px at 50% 0%, rgba(0,0,0,1), rgba(0,0,0,.0));
+      opacity:.7;
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift{
+      0%{transform:translate3d(0,0,0)}
+      100%{transform:translate3d(46px,46px,0)}
+    }
+
+    a{color:inherit}
+    button{font-family:inherit}
+
+    .wrap{max-width:1180px; margin:0 auto; padding:22px;}
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+      position:sticky; top:14px; z-index:10;
+    }
+
+    .brand{display:flex; align-items:center; gap:12px; min-width:260px;}
+    .logo{
+      width:42px; height:42px;
+      border-radius:14px;
+      background: conic-gradient(from 180deg, var(--brand1), var(--brand2), var(--brand3), var(--brand1));
+      box-shadow: 0 0 0 6px rgba(255,255,255,.04), 0 20px 60px rgba(139,92,246,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%);
+      transform: rotate(12deg);
+    }
+    .brand h1{font-size:14px; margin:0; letter-spacing:.2px;}
+    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{
+      text-decoration:none;
+      padding:10px 12px;
+      border:1px solid transparent;
+      border-radius:12px;
+      color:rgba(234,240,255,.86);
+      font-size:13px;
+      background: transparent;
+      transition: .2s ease;
+    }
+    .nav a:hover{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      padding:22px 0 10px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr;}
+      .brand{min-width:auto}
+    }
+
+    .heroCard{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:22px;
+      padding:18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 180px at 20% 0%, rgba(139,92,246,.22), transparent 55%),
+        radial-gradient(520px 200px at 90% 20%, rgba(34,211,238,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .heroCard > *{position:relative}
+
+    .kicker{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:rgba(234,240,255,.9);
+      font-size:12.5px;
+    }
+    .pill .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(180deg, var(--brand2), var(--brand1));
+      box-shadow: 0 0 0 6px rgba(34,211,238,.12);
+    }
+
+    .title{margin:14px 0 8px; font-size:38px; line-height:1.08; letter-spacing:-.6px;}
+    .sub{margin:0; color:var(--muted); font-size:14.5px; max-width:62ch;}
+
+    .ctaRow{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      cursor:pointer;
+      transition:.2s ease;
+      font-weight:600;
+      font-size:14px;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.25)}
+    .btn.primary{
+      border-color: rgba(34,211,238,.35);
+      background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(139,92,246,.18));
+      box-shadow: 0 18px 50px rgba(34,211,238,.12);
+    }
+    .btn.secondary{background: rgba(255,255,255,.05)}
+    .btn .icon{
+      width:20px; height:20px; display:inline-block;
+      background: rgba(255,255,255,.14);
+      border-radius:7px;
+      position:relative;
+    }
+    .btn .icon:after{
+      content:"";
+      position:absolute; inset:5px;
+      border:2px solid rgba(255,255,255,.85);
+      border-left-color: transparent; border-bottom-color: transparent;
+      transform: rotate(45deg);
+      border-radius:2px;
+    }
+
+    .statGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .stat{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:14px;
+      overflow:hidden;
+      position:relative;
+      min-height:92px;
+    }
+    .stat:before{
+      content:"";
+      position:absolute; right:-20px; top:-20px;
+      width:120px; height:120px;
+      background: radial-gradient(circle at 30% 30%, rgba(139,92,246,.35), transparent 60%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .stat:nth-child(2):before{background: radial-gradient(circle at 30% 30%, rgba(34,211,238,.35), transparent 60%);} 
+    .stat:nth-child(3):before{background: radial-gradient(circle at 30% 30%, rgba(52,211,153,.32), transparent 60%);} 
+    .stat:nth-child(4):before{background: radial-gradient(circle at 30% 30%, rgba(245,158,11,.25), transparent 60%);} 
+
+    .stat .label{color:var(--muted); font-size:12.5px; position:relative}
+    .stat .value{font-size:22px; font-weight:800; margin-top:8px; position:relative; letter-spacing:-.3px}
+    .stat .trend{color:rgba(234,240,255,.82); font-size:12.5px; margin-top:3px; position:relative}
+
+    .sectionTitle{margin:26px 0 10px; font-size:16px; color:rgba(234,240,255,.9); letter-spacing:.2px}
+
+    .dashboard{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){.dashboard{grid-template-columns:1fr;}}
+
+    .panel{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      border-radius:22px;
+      padding:16px;
+      box-shadow: 0 14px 50px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .panelHeader{display:flex; align-items:flex-start; justify-content:space-between; gap:12px;}
+    .panelHeader h2{margin:0; font-size:15px; letter-spacing:.2px}
+    .panelHeader p{margin:4px 0 0; color:var(--muted); font-size:13px}
+
+    .toolbar{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center}
+    .search{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .search input{
+      border:none; outline:none; background:transparent;
+      color:var(--text); width:220px; font-size:13.5px;
+    }
+    .search input::placeholder{color:rgba(234,240,255,.55)}
+
+    .chipRow{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      padding:9px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:rgba(234,240,255,.9);
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .chip:hover{transform: translateY(-1px)}
+    .chip.active{
+      border-color: rgba(34,211,238,.45);
+      background: linear-gradient(135deg, rgba(34,211,238,.16), rgba(139,92,246,.14));
+      box-shadow: 0 18px 50px rgba(139,92,246,.10);
+    }
+
+    .reviewList{margin-top:12px; display:flex; flex-direction:column; gap:12px}
+
+    .review{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:12px;
+      display:flex; gap:12px;
+      align-items:flex-start;
+    }
+
+    .avatar{
+      width:42px; height:42px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(34,211,238,.25), rgba(139,92,246,.25));
+      border:1px solid rgba(255,255,255,.15);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+      letter-spacing:.4px;
+      flex:0 0 auto;
+    }
+
+    .reviewMain{flex:1 1 auto; min-width:0}
+    .reviewTop{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .name{font-weight:800; font-size:14px; margin:0}
+    .meta{color:var(--muted); font-size:12.5px; margin-top:2px}
+    .rating{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+    .stars{letter-spacing:2px; font-size:13px; color:rgba(245,158,11,.95)}
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      font-size:12.5px;
+      color:rgba(234,240,255,.88);
+      white-space:nowrap;
+    }
+
+    .reviewText{margin:8px 0 0; color:rgba(234,240,255,.86); font-size:13.8px; line-height:1.45}
+
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:rgba(234,240,255,.86);
+      font-size:12.5px;
+    }
+
+    .miniGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+    .metric{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:12px;
+      min-height:88px;
+    }
+    .metric .k{color:var(--muted); font-size:12.5px}
+    .metric .v{font-size:20px; font-weight:900; margin-top:6px; letter-spacing:-.3px}
+    .metric .hint{margin-top:4px; color:rgba(234,240,255,.80); font-size:12.5px}
+
+    .barWrap{margin-top:14px}
+    .barRow{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:10px 0}
+    .barRow .lbl{font-size:13px; color:rgba(234,240,255,.88)}
+    .barRow .pct{font-size:12.5px; color:var(--muted); min-width:56px; text-align:right}
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      flex:1;
+    }
+    .bar > i{
+      display:block; height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(34,211,238,.95), rgba(139,92,246,.95));
+      border-radius:999px;
+      box-shadow: 0 0 0 1px rgba(34,211,238,.18) inset;
+    }
+
+    .footer{
+      margin:22px 0 32px;
+      color:rgba(234,240,255,.70);
+      font-size:12.5px;
+      text-align:center;
+    }
+
+    dialog{border:none; padding:0; background:transparent; width:min(680px, calc(100vw - 24px));}
+    dialog::backdrop{background:rgba(0,0,0,.55)}
+    .modal{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,14,30,.92);
+      border-radius:22px;
+      padding:16px;
+      box-shadow: 0 22px 90px rgba(0,0,0,.6);
+      backdrop-filter: blur(12px);
+    }
+    .modalHead{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
+    .modalHead h3{margin:0; font-size:15px}
+    .closeBtn{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      width:38px; height:38px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .modalBody{margin-top:12px; color:var(--muted); font-size:13.5px; line-height:1.45}
+    .modalForm{margin-top:14px; display:grid; gap:10px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width:560px){.row{grid-template-columns:1fr}}
+    .field{display:flex; flex-direction:column; gap:7px}
+    .field label{font-size:12.5px; color:rgba(234,240,255,.82)}
+    .field input, .field select, .field textarea{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding:11px 12px;
+      color:var(--text);
+      outline:none;
+      font-size:13.5px;
+    }
+    .field textarea{min-height:90px; resize:vertical}
+    .modalActions{display:flex; justify-content:flex-end; gap:10px; margin-top:8px; flex-wrap:wrap}
+
+    .toast{
+      position:fixed;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      background: rgba(10,14,30,.92);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:16px;
+      padding:10px 12px;
+      color:rgba(234,240,255,.92);
+      font-size:13px;
+      box-shadow: 0 18px 70px rgba(0,0,0,.55);
+      opacity:0;
+      pointer-events:none;
+      transition: .2s ease;
+      z-index:999;
+    }
+    .toast.show{opacity:1;}
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>TRENDY BAGSTORE</h1>
+          <p>Topcity Plaza • Kisenyi • Shopno. ED 07 • Contact: 0707891923</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#reviews">Reviews</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Store hero">
+      <div class="heroCard">
+        <div class="kicker">
+          <span class="pill"><span class="dot"></span> Cool bags • Fast service</span>
+          <span class="pill">Customer-first • Quality materials</span>
+        </div>
+        <h2 class="title">TRENDY BAGSTORE — Built for street style.</h2>
+        <p class="sub">
+          Found at <b>Topcity Plaza, Kisenyi</b>, Shopno. <b>ED 07</b>. Browse customer reviews and a live dashboard right here.
+          Add your own review instantly.
+        </p>
+        <div class="ctaRow">
+          <a class="btn primary" href="#reviews" onclick="scrollToId('reviews')"><span class="icon" aria-hidden="true"></span>Write a review</a>
+          <a class="btn secondary" href="#contact" onclick="scrollToId('contact')">Contact: 0707891923</a>
+        </div>
+      </div>
+
+      <div class="heroCard">
+        <div class="statGrid">
+          <div class="stat">
+            <div class="label">Average rating</div>
+            <div class="value" id="avgRating">—</div>
+            <div class="trend">Based on <span id="reviewCount">0</span> reviews</div>
+          </div>
+          <div class="stat">
+            <div class="label">Fast replies</div>
+            <div class="value">~5m</div>
+            <div class="trend">in-store + WhatsApp inquiries</div>
+          </div>
+          <div class="stat">
+            <div class="label">Top pickup area</div>
+            <div class="value">Kisenyi</div>
+            <div class="trend">Topcity Plaza • ED 07</div>
+          </div>
+          <div class="stat">
+            <div class="label">Most loved</div>
+            <div class="value" id="mostLoved">Durability</div>
+            <div class="trend">Quality stitching & zips</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sectionTitle" id="reviews">Customer Reviews</section>
+
+    <section class="dashboard" id="dashboard">
+      <div class="panel" aria-label="Reviews panel">
+        <div class="panelHeader">
+          <div>
+            <h2>Reviews feed</h2>
+            <p>Search, filter by rating, and preview tags instantly.</p>
+          </div>
+          <div class="toolbar">
+            <div class="search" role="search">
+              <span aria-hidden="true">🔎</span>
+              <input id="searchInput" type="search" placeholder="Search reviews (e.g., quality, fast)" />
+            </div>
+            <button class="btn primary" id="addReviewBtn" type="button" style="padding:12px 13px">
+              <span class="icon" aria-hidden="true"></span>
+              Add review
+            </button>
+          </div>
+        </div>
+
+        <div class="chipRow" style="margin-top:12px">
+          <div class="chip active" data-filter="all">All</div>
+          <div class="chip" data-filter="5">5★</div>
+          <div class="chip" data-filter="4">4★</div>
+          <div class="chip" data-filter="3">3★</div>
+          <div class="chip" data-filter="2">2★</div>
+          <div class="chip" data-filter="1">1★</div>
+        </div>
+
+        <div class="reviewList" id="reviewList" aria-live="polite"></div>
+      </div>
+
+      <aside class="panel" aria-label="Analytics">
+        <div class="panelHeader">
+          <div>
+            <h2>Reviews dashboard</h2>
+            <p>Quick insights from customer feedback.</p>
+          </div>
+        </div>
+
+        <div class="miniGrid">
+          <div class="metric">
+            <div class="k">Total reviews</div>
+            <div class="v" id="dashCount">0</div>
+            <div class="hint">In your local sample</div>
+          </div>
+          <div class="metric">
+            <div class="k">Best rating</div>
+            <div class="v" id="bestRating">—</div>
+            <div class="hint">Highest score given</div>
+          </div>
+          <div class="metric">
+            <div class="k">Top tag</div>
+            <div class="v" id="topTag">—</div>
+            <div class="hint">Most frequent theme</div>
+          </div>
+          <div class="metric">
+            <div class="k">Sentiment</div>
+            <div class="v" id="sentiment">—</div>
+            <div class="hint">Overall vibe</div>
+          </div>
+        </div>
+
+        <div class="barWrap" aria-label="Rating distribution">
+          <div class="sectionTitle" style="margin:18px 0 8px">Rating distribution</div>
+          <div class="barRow"><div class="lbl">5★</div><div class="bar"><i id="b5"></i></div><div class="pct" id="p5">—</div></div>
+          <div class="barRow"><div class="lbl">4★</div><div class="bar"><i id="b4"></i></div><div class="pct" id="p4">—</div></div>
+          <div class="barRow"><div class="lbl">3★</div><div class="bar"><i id="b3"></i></div><div class="pct" id="p3">—</div></div>
+          <div class="barRow"><div class="lbl">2★</div><div class="bar"><i id="b2"></i></div><div class="pct" id="p2">—</div></div>
+          <div class="barRow"><div class="lbl">1★</div><div class="bar"><i id="b1"></i></div><div class="pct" id="p1">—</div></div>
+        </div>
+
+        <div style="margin-top:14px; color:rgba(234,240,255,.75); font-size:12.8px; line-height:1.45">
+          <b>Tip:</b> Add new reviews to see the dashboard update instantly (stored in your browser).
+        </div>
+      </aside>
+    </section>
+
+    <section class="sectionTitle" id="contact" style="margin-top:28px">Contact</section>
+    <div class="panel" style="padding:16px">
+      <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between">
+        <div>
+          <div style="font-weight:900; font-size:16px">TRENDY BAGSTORE</div>
+          <div style="color:var(--muted); font-size:13.5px; margin-top:4px">Found at Topcity Plaza, Kisenyi — Shopno. ED 07</div>
+          <div style="color:var(--muted); font-size:13.5px; margin-top:4px">Contact: <b style="color:rgba(234,240,255,.95)">0707891923</b></div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn primary" href="tel:0707891923" style="text-decoration:none"><span class="icon" aria-hidden="true"></span>Call now</a>
+          <button class="btn secondary" type="button" id="openMapBtn">Copy location text</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© <span id="year"></span> Trendy Bagstore. Cool customer review dashboard.</div>
+  </div>
+
+  <dialog id="reviewModal">
+    <div class="modal">
+      <div class="modalHead">
+        <div>
+          <h3>Write a customer review</h3>
+          <div style="color:var(--muted); font-size:12.8px; margin-top:4px">Instantly updates the dashboard</div>
+        </div>
+        <button class="closeBtn" type="button" id="modalClose" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modalBody">Share what you loved: bag quality, durability, price, delivery/pickup speed, customer service.</div>
+
+      <form class="modalForm" id="reviewForm">
+        <div class="row">
+          <div class="field">
+            <label>Your name</label>
+            <input name="name" required placeholder="e.g., Amina" />
+          </div>
+          <div class="field">
+            <label>Rating</label>
+            <select name="rating" required>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Tag (theme)</label>
+            <select name="tag">
+              <option value="Durability">Durability</option>
+              <option value="Quality">Quality</option>
+              <option value="Price">Price</option>
+              <option value="Fast Service">Fast Service</option>
+              <option value="Customer Care">Customer Care</option>
+              <option value="Style">Style</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Visit type</label>
+            <select name="visitType">
+              <option value="In-store">In-store</option>
+              <option value="Pickup">Pickup</option>
+              <option value="Delivery">Delivery</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Your review</label>
+          <textarea name="text" required placeholder="Write your experience..." minlength="10"></textarea>
+        </div>
+
+        <div class="modalActions">
+          <button class="btn secondary" type="button" id="modalCancel">Cancel</button>
+          <button class="btn primary" type="submit"><span class="icon" aria-hidden="true"></span>Publish review</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const STORE = {
+      businessName: 'TRENDY BAGSTORE',
+      addressLine: 'Topcity Plaza, Kisenyi',
+      shopNo: 'ED 07',
+      contact: '0707891923'
+    };
+
+    const STORAGE_KEY = 'trendy_bagstore_reviews_v1';
+
+    // Small built-in sample so the dashboard looks alive on first load.
+    const seedReviews = [
+      {name:'Mary', rating:5, tag:'Durability', visitType:'In-store', text:'Zips are strong and the stitching is clean. My bag still looks new after weeks.', dateISO: daysAgoISO(4)},
+      {name:'Brian', rating:4, tag:'Style', visitType:'Pickup', text:'Really trendy designs. Got compliments the same day.', dateISO: daysAgoISO(7)},
+      {name:'Amina', rating:5, tag:'Quality', visitType:'In-store', text:'Great material and neat finishing. The bag feels premium for the price.', dateISO: daysAgoISO(2)},
+      {name:'Terry', rating:5, tag:'Fast Service', visitType:'In-store', text:'They attended quickly and helped me choose the right size.', dateISO: daysAgoISO(5)},
+      {name:'Kevin', rating:4, tag:'Price', visitType:'Pickup', text:'Affordable and worth it. Good options for students.', dateISO: daysAgoISO(10)},
+      {name:'Zainab', rating:5, tag:'Customer Care', visitType:'Delivery', text:'Very friendly and patient. Answered all my questions before buying.', dateISO: daysAgoISO(6)},
+      {name:'Isaac', rating:3, tag:'Quality', visitType:'In-store', text:'Nice selection, but one bag looked slightly different from the picture. Staff fixed it though.', dateISO: daysAgoISO(12)},
+      {name:'Clare', rating:5, tag:'Style', visitType:'In-store', text:'Color is perfect and it matches my outfits. Looks classy!', dateISO: daysAgoISO(1)},
+      {name:'Nelson', rating:4, tag:'Fast Service', visitType:'Pickup', text:'Quick pickup experience. I was in and out fast.', dateISO: daysAgoISO(9)},
+      {name:'Joan', rating:5, tag:'Durability', visitType:'Delivery', text:'Delivered safely. Strong straps and the bag holds a lot without bending.', dateISO: daysAgoISO(3)},
+      {name:'Peter', rating:2, tag:'Price', visitType:'In-store', text:'Expected a bit more for the price, but the staff were helpful.', dateISO: daysAgoISO(15)},
+      {name:'Faith', rating:5, tag:'Customer Care', visitType:'In-store', text:'Friendly service and good advice. I’ll come back for another bag soon.', dateISO: daysAgoISO(0.5)}
+    ];
+
+    function daysAgoISO(days){
+      const d = new Date();
+      d.setHours(d.getHours() - days*24);
+      return d.toISOString();
+    }
+
+    function escapeHTML(str){
+      return String(str).replace(/[&<>"']/g, (c)=>({"&":"&amp;","<":"<",">":">",'"':'&#34;','\'':'&#39;'}[c] || c));
+    }
+
+    function formatDate(iso){
+      try{
+        const d = new Date(iso);
+        return d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
+      }catch{
+        return iso;
+      }
+    }
+
+    function stars(rating){
+      const full = Math.max(0, Math.min(5, Number(rating)||0));
+      return '★'.repeat(full) + '☆'.repeat(5-full);
+    }
+
+    function sentimentFromAvg(avg){
+      if(avg >= 4.7) return 'Very hot';
+      if(avg >= 4.3) return 'Hot';
+      if(avg >= 3.7) return 'Good';
+      if(avg >= 3.0) return 'Mixed';
+      return 'Needs improvement';
+    }
+
+    function toast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      window.clearTimeout(toast._timer);
+      toast._timer = window.setTimeout(()=>t.classList.remove('show'), 1800);
+    }
+
+    let reviews = [];
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      reviews = raw ? JSON.parse(raw) : [];
+    }catch{ reviews = []; }
+
+    if(!Array.isArray(reviews) || reviews.length === 0){
+      reviews = seedReviews;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+    }
+
+    const els = {
+      reviewList: document.getElementById('reviewList'),
+      avgRating: document.getElementById('avgRating'),
+      reviewCount: document.getElementById('reviewCount'),
+      dashCount: document.getElementById('dashCount'),
+      bestRating: document.getElementById('bestRating'),
+      topTag: document.getElementById('topTag'),
+      sentiment: document.getElementById('sentiment'),
+      mostLoved: document.getElementById('mostLoved'),
+      b: {1: document.getElementById('b1'), 2: document.getElementById('b2'), 3: document.getElementById('b3'), 4: document.getElementById('b4'), 5: document.getElementById('b5')},
+      p: {1: document.getElementById('p1'), 2: document.getElementById('p2'), 3: document.getElementById('p3'), 4: document.getElementById('p4'), 5: document.getElementById('p5')},
+      searchInput: document.getElementById('searchInput'),
+      addReviewBtn: document.getElementById('addReviewBtn'),
+      reviewModal: document.getElementById('reviewModal'),
+      reviewForm: document.getElementById('reviewForm'),
+      modalClose: document.getElementById('modalClose'),
+      modalCancel: document.getElementById('modalCancel'),
+      openMapBtn: document.getElementById('openMapBtn'),
+      year: document.getElementById('year')
+    };
+
+    els.year.textContent = new Date().getFullYear();
+
+    let activeFilter = 'all';
+
+    function getFiltered(){
+      const q = (els.searchInput.value || '').trim().toLowerCase();
+      const f = activeFilter;
+      let list = reviews.slice().sort((a,b)=> new Date(b.dateISO) - new Date(a.dateISO));
+
+      if(f !== 'all'){
+        list = list.filter(r => String(r.rating) === String(f));
+      }
+      if(q){
+        list = list.filter(r => {
+          const hay = [r.name, r.tag, r.visitType, r.text].join(' ').toLowerCase();
+          return hay.includes(q);
+        });
+      }
+      return list;
+    }
+
+    function updateDashboardStats(sourceReviews){
+      const total = sourceReviews.length;
+      els.dashCount.textContent = total;
+
+      if(total === 0){
+        els.avgRating.textContent = '—';
+        els.reviewCount.textContent = '0';
+        els.bestRating.textContent = '—';
+        els.topTag.textContent = '—';
+        els.sentiment.textContent = '—';
+        els.mostLoved.textContent = '—';
+        for(const k of [1,2,3,4,5]){ els.b[k].style.width = '0%'; els.p[k].textContent = '—'; }
+        return;
+      }
+
+      const avg = sourceReviews.reduce((s,r)=>s+Number(r.rating||0),0)/total;
+      els.avgRating.textContent = avg.toFixed(1);
+      els.reviewCount.textContent = total;
+
+      let best = 0;
+      for(const r of sourceReviews){ best = Math.max(best, Number(r.rating||0)); }
+      els.bestRating.textContent = `${best}★`;
+
+      const tagCounts = new Map();
+      for(const r of sourceReviews){
+        const t = r.tag || 'Other';
+        tagCounts.set(t, (tagCounts.get(t)||0)+1);
+      }
+      let top = '—';
+      let max = 0;
+      for(const [t,c] of tagCounts.entries()){
+        if(c > max){ max = c; top = t; }
+      }
+      els.topTag.textContent = top;
+      els.mostLoved.textContent = top;
+
+      els.sentiment.textContent = sentimentFromAvg(avg);
+
+      const dist = {1:0,2:0,3:0,4:0,5:0};
+      for(const r of sourceReviews){
+        const rr = Number(r.rating||0);
+        if(dist[rr] !== undefined) dist[rr]++;
+      }
+
+      for(const k of [5,4,3,2,1]){
+        const count = dist[k];
+        const pct = total ? (count/total*100) : 0;
+        els.b[k].style.width = `${pct.toFixed(0)}%`;
+        els.p[k].textContent = total ? `${count} (${pct.toFixed(0)}%)` : '—';
+      }
+    }
+
+    function renderReviews(){
+      const list = getFiltered();
+
+      if(list.length === 0){
+        els.reviewList.innerHTML = `
+          <div class="review">
+            <div class="avatar" aria-hidden="true">✨</div>
+            <div class="reviewMain">
+              <div class="name" style="margin-bottom:6px">No reviews match</div>
+              <div class="reviewText">Try clearing the search or switching the rating filter.</div>
+            </div>
+          </div>
+        `;
+        // still show dashboard for all reviews (not filtered) as a better UX.
+        updateDashboardStats(reviews);
+        return;
+      }
+
+      els.reviewList.innerHTML = list.map(r => {
+        const initials = (r.name || '?').trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase();
+        return `
+          <div class="review">
+            <div class="avatar" aria-hidden="true">${escapeHTML(initials || '?')}</div>
+            <div class="reviewMain">
+              <div class="reviewTop">
+                <div>
+                  <p class="name">${escapeHTML(r.name || 'Anonymous')}</p>
+                  <div class="meta">${escapeHTML(formatDate(r.dateISO))} • ${escapeHTML(r.visitType || 'In-store')}</div>
+                </div>
+                <div class="rating">
+                  <div class="stars" aria-label="Rating">${stars(r.rating)}</div>
+                  <div class="badge">${escapeHTML(r.tag || '—')}</div>
+                </div>
+              </div>
+              <div class="reviewText">${escapeHTML(r.text || '')}</div>
+              <div class="tagRow">
+                <span class="tag">${escapeHTML(r.tag || 'Theme')}</span>
+                <span class="tag">${escapeHTML(r.visitType || 'Visit type')}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Dashboard is based on all reviews (so analytics doesn't jump while filtering feed)
+      updateDashboardStats(reviews);
+    }
+
+    // Filters
+    document.querySelectorAll('.chip[data-filter]').forEach(chip => {
+      chip.addEventListener('click', ()=>{
+        document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active');
+        activeFilter = chip.getAttribute('data-filter');
+        renderReviews();
+      });
+    });
+
+    // Search
+    els.searchInput.addEventListener('input', ()=>renderReviews());
+
+    // Modal
+    function openModal(){
+      if(typeof els.reviewModal.showModal === 'function') els.reviewModal.showModal();
+      else els.reviewModal.setAttribute('open','');
+    }
+    function closeModal(){
+      if(typeof els.reviewModal.close === 'function') els.reviewModal.close();
+      else els.reviewModal.removeAttribute('open');
+    }
+
+    els.addReviewBtn.addEventListener('click', openModal);
+    els.modalClose.addEventListener('click', closeModal);
+    els.modalCancel.addEventListener('click', closeModal);
+    els.reviewModal.addEventListener('click', (e)=>{ if(e.target === els.reviewModal) closeModal(); });
+
+    els.reviewForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const formData = new FormData(els.reviewForm);
+      const name = String(formData.get('name') || '').trim();
+      const rating = Number(formData.get('rating') || 0);
+      const tag = String(formData.get('tag') || 'Durability');
+      const visitType = String(formData.get('visitType') || 'In-store');
+      const text = String(formData.get('text') || '').trim();
+
+      if(!name || !rating || !text || text.length < 10){
+        toast('Please fill all fields correctly (review must be at least 10 characters).');
+        return;
+      }
+
+      const newReview = {
+        name,
+        rating: Math.max(1, Math.min(5, rating)),
+        tag,
+        visitType,
+        text,
+        dateISO: new Date().toISOString()
+      };
+
+      reviews = [newReview, ...reviews];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+
+      els.reviewForm.reset();
+      closeModal();
+      toast('Review published! Dashboard updated.');
+
+      renderReviews();
+    });
+
+    // Copy location text
+    els.openMapBtn.addEventListener('click', async ()=>{
+      const locationText = `TRENDY BAGSTORE — Topcity Plaza, Kisenyi, Shopno. ED 07, Contact: 0707891923`;
+      try{
+        await navigator.clipboard.writeText(locationText);
+        toast('Location text copied.');
+      }catch{
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = locationText;
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); }catch{}
+        ta.remove();
+        toast('Location text copied.');
+      }
+    });
+
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Initial render
+    renderReviews();
+  </script>
+</body>
+</html>
+
